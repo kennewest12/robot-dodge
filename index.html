@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#080d18">
+  <title>ROBOT DODGE // Neon Run</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main id="game-shell">
+    <div id="game"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Robot Dodge home"><span class="brand-mark">R</span><span>ROBOT<br><b>DODGE</b></span></a>
+      <div class="run-stats"><div><small>DISTANCE</small><strong id="distance">0000</strong></div><div><small>BEST</small><strong id="best">0000</strong></div></div>
+      <button id="leaderboard-button" class="icon-button" aria-label="Show leaderboard">☷</button>
+    </header>
+    <aside class="player-badge" id="player-badge"><span class="online-dot"></span><span id="player-name">Connecting…</span><small id="player-account"></small><button id="sign-in" hidden>Sign in</button></aside>
+    <section class="overlay" id="start-screen">
+      <div class="eyebrow"><i></i> ENDLESS RUNNER · SECTOR 07</div>
+      <h1>ROBOT<br><span>DODGE</span></h1>
+      <p>One bot. Three lanes. No second chances.</p>
+      <div class="controls"><span><kbd>←</kbd><kbd>→</kbd> SWITCH LANES</span><span><kbd>A</kbd><kbd>D</kbd> MOVE</span><span><kbd>SPACE</kbd> JUMP</span></div>
+      <button id="start-button" class="primary-button">START RUN <span>↗</span></button>
+    </section>
+    <section class="overlay compact" id="end-screen" hidden>
+      <div class="eyebrow"><i></i> RUN COMPLETE</div><h2>CRASH<br><span>DETECTED</span></h2>
+      <p id="run-result">Distance: 0m</p><button id="restart-button" class="primary-button">TRY AGAIN <span>↗</span></button>
+    </section>
+    <section class="overlay compact board" id="leaderboard-screen" hidden>
+      <button class="close-button" id="close-board" aria-label="Close leaderboard">×</button><div class="eyebrow"><i></i> GLOBAL RANKINGS</div><h2>TOP<br><span>RUNNERS</span></h2><ol id="leaderboard-list"><li class="muted">Loading…</li></ol>
+    </section>
+    <footer><span>NEON DISTRICT <b>•</b> 2097</span><span>STYLE SYNC <i></i></span></footer>
+  </main>
+  <script type="module" src="./game.js"></script>
+</body>
+</html>
