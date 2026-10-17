@@ -175,7 +175,16 @@ function startRun() {
   for (const o of obstacles) scene.remove(o.mesh); obstacles.length = 0;
   laneIndex = 1; distance = 0; dodges = 0; speed = 17; spawnTimer = .6; jump = 0; jumpVelocity = 0;
   character.position.set(0, 0, 1.5); state = 'playing';
+  $('pace').textContent = 'x1.0'; $('distance').textContent = '0000';
   $('start-screen').hidden = true; $('end-screen').hidden = true; $('leaderboard-screen').hidden = true;
+}
+function stopRun() {
+  state = 'ready'; laneIndex = 1; jump = 0; jumpVelocity = 0;
+  for (const obstacle of obstacles) scene.remove(obstacle.mesh);
+  obstacles.length = 0; distance = 0; dodges = 0; speed = 17;
+  character.position.set(0, 0, 1.5); character.rotation.set(0, 0, 0);
+  $('distance').textContent = '0000'; $('pace').textContent = 'x1.0';
+  $('end-screen').hidden = true; $('leaderboard-screen').hidden = true; $('start-screen').hidden = false;
 }
 function finishRun() {
   if (state !== 'playing') return;
@@ -201,7 +210,7 @@ renderer.domElement.addEventListener('touchend', (e) => {
   if (touchX === null) return; const dx = e.changedTouches[0].clientX - touchX;
   if (Math.abs(dx) > 28) switchLane(dx < 0 ? -1 : 1); else jumpNow(); touchX = null;
 }, { passive: true });
-$('start-button').addEventListener('click', startRun); $('restart-button').addEventListener('click', startRun);
+$('start-button').addEventListener('click', startRun); $('restart-button').addEventListener('click', startRun); $('stop-button').addEventListener('click', stopRun);
 $('leaderboard-button').addEventListener('click', async () => {
   $('leaderboard-screen').hidden = false; $('leaderboard-list').innerHTML = '<li class="muted">Loading…</li>';
   const reply = await askStartNg({ type: 'startng:leaderboard', limit: 10 }, 'startng:leaderboardData', 7000);
@@ -217,7 +226,7 @@ function animate() {
   const dt = Math.min(clock.getDelta(), .04); totalTime += dt;
   character.position.x = THREE.MathUtils.damp(character.position.x, LANES[laneIndex], 11, dt);
   if (state === 'playing') {
-    distance += speed * dt * .72; speed = Math.min(29, speed + dt * .42); spawnTimer -= dt;
+    distance += speed * dt * .72; speed = Math.min(29, speed + dt * .3); spawnTimer -= dt;
     if (spawnTimer <= 0) { spawnObstacle(); spawnTimer = Math.max(.64, 1.25 - (speed - 17) * .035) + Math.random() * .5; }
     jumpVelocity -= 21 * dt; jump = Math.max(0, jump + jumpVelocity * dt); if (jump === 0) jumpVelocity = Math.max(0, jumpVelocity);
     character.position.y = jump; character.rotation.z = THREE.MathUtils.damp(character.rotation.z, (LANES[laneIndex] - character.position.x) * -.055, 10, dt);
@@ -230,6 +239,7 @@ function animate() {
     }
     for (let i = obstacles.length - 1; i >= 0; i--) if (obstacles[i].mesh.position.z > 13) { scene.remove(obstacles[i].mesh); obstacles.splice(i, 1); }
     $('distance').textContent = String(Math.floor(distance)).padStart(4, '0');
+    $('pace').textContent = `x${(speed / 17).toFixed(1)}`;
   } else {
     character.position.y = Math.sin(totalTime * 2) * .04;
     character.rotation.y = Math.sin(totalTime * .55) * .09;

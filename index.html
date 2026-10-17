@@ -12,7 +12,7 @@
     <div id="game"></div>
     <header class="topbar">
       <a class="brand" href="#" aria-label="Robot Dodge home"><span class="brand-mark">R</span><span>ROBOT<br><b>DODGE</b></span></a>
-      <div class="run-stats"><div><small>DISTANCE</small><strong id="distance">0000</strong></div><div><small>BEST</small><strong id="best">0000</strong></div></div>
+      <div class="run-stats"><div><small>DISTANCE</small><strong id="distance">0000</strong></div><div><small>PACE</small><strong id="pace">x1.0</strong></div><div><small>BEST</small><strong id="best">0000</strong></div></div>
       <button id="leaderboard-button" class="icon-button" aria-label="Show leaderboard">☷</button>
     </header>
     <aside class="player-badge" id="player-badge"><span class="online-dot"></span><span id="player-name">Connecting…</span><small id="player-account"></small><button id="sign-in" hidden>Sign in</button></aside>
@@ -25,7 +25,7 @@
     </section>
     <section class="overlay compact" id="end-screen" hidden>
       <div class="eyebrow"><i></i> RUN COMPLETE</div><h2>CRASH<br><span>DETECTED</span></h2>
-      <p id="run-result">Distance: 0m</p><button id="restart-button" class="primary-button">TRY AGAIN <span>↗</span></button>
+      <p id="run-result">Distance: 0m</p><div class="end-actions"><button id="restart-button" class="primary-button">TRY AGAIN <span>↗</span></button><button id="stop-button" class="secondary-button">STOP RUN <span>×</span></button></div>
     </section>
     <section class="overlay compact board" id="leaderboard-screen" hidden>
       <button class="close-button" id="close-board" aria-label="Close leaderboard">×</button><div class="eyebrow"><i></i> GLOBAL RANKINGS</div><h2>TOP<br><span>RUNNERS</span></h2><ol id="leaderboard-list"><li class="muted">Loading…</li></ol>
